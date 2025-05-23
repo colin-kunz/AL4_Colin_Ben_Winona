@@ -15,6 +15,13 @@
   top: 0;
   z-index: 1000;
 }
+.logo {
+  font-family: "Jost", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+}
+
 body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; /* Modern, clean font stack */
   line-height: 1.6;
@@ -61,9 +68,8 @@ ul {
   background-color: #fff;
 }
 
-.header .logo a {
+.header a {
   font-size: 28px;
-  font-weight: bold;
   color: #000;
   letter-spacing: 1px;
 }
