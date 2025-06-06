@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let score = 0;
     let obstacleX = 600;
-    let speed = 5;
+    let speed = 7; // CHANGED: Increased initial speed
     let hit = false;
     let rewardShown = false;
     let animationFrame;
@@ -43,12 +43,26 @@ document.addEventListener("DOMContentLoaded", () => {
       "https://i.postimg.cc/m2J3Bmqj/Chat-GPT-Image-3-Juni-2025-21-45-02.png",
     ];
 
+    // UPDATED JUMP FUNCTION
     function jump() {
       if (game.classList.contains("hidden")) return; // Don't jump if game hasn't started
-      if (!player.classList.contains("jump-animation")) {
-        player.classList.add("jump-animation");
+
+      // Check if either animation class is already present to prevent re-triggering mid-jump
+      if (
+        !player.classList.contains("jump-frontflip") &&
+        !player.classList.contains("jump-backflip")
+      ) {
+        // Randomly choose between a front-flip and a back-flip
+        const flipClass =
+          Math.random() < 0.5 ? "jump-frontflip" : "jump-backflip";
+        player.classList.add(flipClass);
+
         if (jumpSound) jumpSound.play();
-        setTimeout(() => player.classList.remove("jump-animation"), 500);
+
+        // Remove the animation classes after the animation is complete (500ms)
+        setTimeout(() => {
+          player.classList.remove("jump-frontflip", "jump-backflip");
+        }, 500);
       }
     }
 
@@ -58,7 +72,6 @@ document.addEventListener("DOMContentLoaded", () => {
         jump();
       }
     });
-    // Also listen for clicks/taps on the game area to jump (for mobile)
     if (game) {
       game.addEventListener("click", jump);
     }
@@ -74,13 +87,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function checkCollision() {
-      // Simplified collision check based on original logic
       const playerTop = parseInt(getComputedStyle(player).bottom);
       return obstacleX < 100 && obstacleX > 50 && playerTop < 80;
     }
 
     function generateCode() {
-      const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ01256789"; // Removed 3,4 to avoid confusion
+      const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ01256789";
       return (
         "SAVE5-" +
         Array.from(
@@ -92,7 +104,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function updateGame() {
       if (!obstacle) {
-        // Stop if elements are missing
         cancelAnimationFrame(animationFrame);
         return;
       }
@@ -119,7 +130,7 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
           }
 
-          if (score % 5 === 0 && speed < 15) speed += 0.5;
+          if (score % 5 === 0 && speed < 18) speed += 0.8; // CHANGED: Slightly increased speed increment
         }
         resetObstacle();
       }
@@ -128,7 +139,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function startGame() {
       score = 0;
-      speed = 5;
+      speed = 7; // CHANGED: Reset speed to new initial value
       obstacleX = 600;
       hit = false;
       rewardShown = false;

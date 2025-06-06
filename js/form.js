@@ -65,7 +65,7 @@ submitButton.addEventListener("click", async (event) => {
 
   try {
     const result = await databaseClient.executeSqlQuery(
-      `SELECT email FROM user WHERE email = '${email}'`
+      `SELECT email FROM formular WHERE email = '${email}'`
     );
     const existing = result?.[1] || [];
 
@@ -75,11 +75,11 @@ submitButton.addEventListener("click", async (event) => {
       return;
     }
 
-    await databaseClient.insertInto("user", {
-      vorname: vornameField.value.trim(),
+    await databaseClient.insertInto("formular", {
+      name: vornameField.value.trim(),
       nachname: nachnameField.value.trim(),
-      email: email,
-      message: messageField.value.trim(),
+      email: emailField.value.trim(),
+      nachricht: messageField.value.trim(),
     });
 
     document.getElementById("userForm").reset();
