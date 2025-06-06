@@ -1,0 +1,268 @@
+<?php
+require_once 'db_config.php'; // Stellt die $pdo-Variable bereit
+
+$feedback_message = '';
+$error_message = '';
+$form_data = ['vorname' => '', 'nachname' => '', 'email' => '', 'message' => ''];
+$errors = [];
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $form_data['vorname'] = trim($_POST['vorname'] ?? '');
+    $form_data['nachname'] = trim($_POST['nachname'] ?? '');
+    $form_data['email'] = trim(strtolower($_POST['email'] ?? ''));
+    $form_data['message'] = trim($_POST['message'] ?? '');
+
+    // Validierung
+    if (empty($form_data['vorname'])) $errors['vorname'] = "Vorname ist ein Pflichtfeld.";
+    if (empty($form_data['nachname'])) $errors['nachname'] = "Nachname ist ein Pflichtfeld.";
+    if (empty($form_data['email'])) {
+        $errors['email'] = "E-Mail ist ein Pflichtfeld.";
+    } elseif (!filter_var($form_data['email'], FILTER_VALIDATE_EMAIL)) {
+        $errors['email'] = "Ungültige E-Mail-Adresse.";
+    }
+    if (empty($form_data['message'])) $errors['message'] = "Nachricht ist ein Pflichtfeld.";
+
+    if (empty($errors)) {
+        try {
+            // Prüfen, ob E-Mail bereits existiert
+            $stmt = $pdo->prepare("SELECT email FROM kontaktanfragen WHERE email = :email");
+            $stmt->execute(['email' => $form_data['email']]);
+            if ($stmt->fetch()) {
+                $errors['email'] = "Diese E-Mail wird schon verwendet.";
+            } else {
+                // In Datenbank einfügen
+                $sql = "INSERT INTO kontaktanfragen (vorname, nachname, email, message) VALUES (:vorname, :nachname, :email, :message)";
+                $stmt = $pdo->prepare($sql);
+                $stmt->execute($form_data);
+                $feedback_message = "Nachricht erfolgreich abgeschickt!";
+                $form_data = ['vorname' => '', 'nachname' => '', 'email' => '', 'message' => '']; // Formular zurücksetzen
+            }
+        } catch (PDOException $e) {
+            error_log("Fehler beim Speichern der Kontaktaufnahme: " . $e->getMessage());
+            $error_message = "Fehler beim Speichern. Bitte versuchen Sie es später erneut.";
+        }
+    } else {
+        $error_message = "Bitte alle Pflichtfelder korrekt ausfüllen.";
+    }
+}
+?>
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MIDNIGHT - Über Uns</title>
+    <link rel="stylesheet" href="css/common.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&display=swap"
+        rel="stylesheet" />
+</head>
+
+<body>
+    <div class="page-container">
+        <header class="header">
+            <div class="header-content-wrapper">
+                <div class="logo">
+                    <a href="index.php">MIDNIGHT</a>
+                </div>
+                <nav class="main-nav">
+                    <ul>
+                        <li>
+                            <a href="katalog.html" class="nav-link-with-icon">
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke-width="1.5"
+                                    stroke="currentColor"
+                                    class="nav-icon-svg"
+                                    width="20"
+                                    height="20">
+                                    <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+                                </svg>
+                                <span>Shop</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="ueber-uns.php" class="nav-link-with-icon active">
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke-width="1.5"
+                                    stroke="currentColor"
+                                    class="nav-icon-svg"
+                                    width="20"
+                                    height="20">
+                                    <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
+                                </svg>
+                                <span>Über Uns</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <section class="ueber-uns-page-title-section">
+                <h1 class="main-title-ueber-uns">ÜBER UNS</h1>
+            </section>
+
+            <section class="wer-wir-sind-section">
+                <div class="wer-wir-sind-content-wrapper">
+                    <div class="wer-wir-sind-image">
+                        <img
+                            src="https://placehold.co/500x600/E9E9E9/6A6A6A?text=Wer+wir+sind"
+                            alt="Team bei der Arbeit oder Studio Impression" />
+                    </div>
+                    <div class="wer-wir-sind-text">
+                        <h2>Wer wir sind</h2>
+                        <p>
+                            Wir sind drei Medieninformatiker, die Midnight als gemeinsames
+                            Projekt ins Leben gerufen haben. Die Idee entstand während
+                            unzähliger Abende, an denen wir selbst gemütliche Kleidung
+                            vermisst haben, die nicht nur zweckmäßig ist, sondern auch Stil
+                            und Ästhetik verspricht.
+                        </p>
+                        <p>
+                            Mit Midnight verbinden wir unser Know-how aus Gestaltung,
+                            Technik und E-Commerce mit dem Wunsch, ein einzigartiges Label
+                            zu erstellen. Alles im Shop – vom Design bis zur Website – haben
+                            wir selbst entwickelt. Für uns ist Midnight nicht nur ein Label,
+                            sondern auch ein kreativer Ausgleich zum Berufsalltag.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="team-hinter-midnight-section">
+                <h2 class="section-title">Das Team hinter Midnight</h2>
+                <div class="team-grid-ueber-uns">
+                    <article class="team-member-card">
+                        <img
+                            src="https://placehold.co/300x300/E9E9E9/6A6A6A?text=Person+1"
+                            alt="Person 1" />
+                        <h3>Person 1</h3>
+                        <p>Geschäftsführer</p>
+                    </article>
+                    <article class="team-member-card">
+                        <img
+                            src="https://placehold.co/300x300/E9E9E9/6A6A6A?text=Person+2"
+                            alt="Person 2" />
+                        <h3>Person 2</h3>
+                        <p>Lorem</p>
+                    </article>
+                    <article class="team-member-card">
+                        <img
+                            src="https://placehold.co/300x300/E9E9E9/6A6A6A?text=Person+3"
+                            alt="Person 3" />
+                        <h3>Person 3</h3>
+                        <p>Ipsum</p>
+                    </article>
+                </div>
+            </section>
+
+            <section class="kontakt-form-section-ueber-uns">
+                <h2 id="kontakt" class="section-title">Verbinden Sie sich mit unserer Journey</h2>
+                <div class="contact-form-container">
+                    <?php if ($feedback_message): ?>
+                        <div class="feedback-message" style="color: green; margin-bottom: 15px; text-align:center;"><?php echo htmlspecialchars($feedback_message); ?></div>
+                    <?php endif; ?>
+                    <?php if ($error_message && empty($errors)): // Genereller Fehler, nicht feldspezifisch 
+                    ?>
+                        <div class="error-message" style="color: red; margin-bottom: 15px; text-align:center;"><?php echo htmlspecialchars($error_message); ?></div>
+                    <?php endif; ?>
+
+                    <form id="userForm" method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>#kontakt">
+                        <input
+                            type="text"
+                            id="vorname"
+                            name="vorname"
+                            placeholder="*Vorname"
+                            value="<?php echo htmlspecialchars($form_data['vorname']); ?>"
+                            class="<?php echo isset($errors['vorname']) ? 'invalid' : ''; ?>" />
+                        <?php if (isset($errors['vorname'])): ?><small class="error-text"><?php echo htmlspecialchars($errors['vorname']); ?></small><?php endif; ?>
+                        <input
+                            type="text"
+                            id="nachname"
+                            name="nachname"
+                            placeholder="*Nachname"
+                            value="<?php echo htmlspecialchars($form_data['nachname']); ?>"
+                            class="<?php echo isset($errors['nachname']) ? 'invalid' : ''; ?>" />
+                        <?php if (isset($errors['nachname'])): ?><small class="error-text"><?php echo htmlspecialchars($errors['nachname']); ?></small><?php endif; ?>
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="*E-Mail"
+                            value="<?php echo htmlspecialchars($form_data['email']); ?>"
+                            class="<?php echo isset($errors['email']) ? 'invalid' : ''; ?>" />
+                        <?php if (isset($errors['email'])): ?><small class="error-text"><?php echo htmlspecialchars($errors['email']); ?></small><?php endif; ?>
+                        <textarea
+                            id="message"
+                            name="message"
+                            placeholder="*Nachricht"
+                            class="<?php echo isset($errors['message']) ? 'invalid' : ''; ?>"><?php echo htmlspecialchars($form_data['message']); ?></textarea>
+                        <?php if (isset($errors['message'])): ?><small class="error-text"><?php echo htmlspecialchars($errors['message']); ?></small><?php endif; ?>
+                        <button id="submit" type="submit">abschicken</button>
+                    </form>
+                    <!-- Spinner kann bei Bedarf mit JS gesteuert werden, aber für reines PHP ist er nicht direkt funktional -->
+                    <!-- <div id="spinner" class="spinner" style="display: none"></div> -->
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <div class="footer-content-wrapper">
+                <div class="footer-column">
+                    <h4>Seiten</h4>
+                    <ul>
+                        <li><a href="index.php">Startseite</a></li>
+                        <li><a href="ueber-uns.php">Über Uns</a></li>
+                        <li><a href="katalog.html">Katalog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Social Media</h4>
+                    <ul>
+                        <li><a href="#">FB</a></li>
+                        <li><a href="#">IG</a></li>
+                        <li><a href="#">TW</a></li>
+                        <li><a href="#">YT</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Achtung</h4>
+                    <p class="footer-achtung-text">
+                        Das ist ein Schulprojekt und keine reale Website
+                    </p>
+                </div>
+                <div class="footer-logo-column">
+                    <a href="index.php" class="footer-logo-link">MIDNIGHT.</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>Copyright by © Midnight</p>
+                <p>Colin, Bernardo, Winona</p>
+            </div>
+        </footer>
+    </div>
+    <!-- 
+      Die Skripte databaseClient.js und form.js werden hier entfernt, 
+      da die Formularverarbeitung und Datenbankinteraktion nun serverseitig mit PHP erfolgt.
+      Clientseitige Validierung kann bei Bedarf separat mit JavaScript hinzugefügt werden,
+      aber ohne direkte Datenbankaufrufe vom Client.
+    -->
+</body>
+
+</html>

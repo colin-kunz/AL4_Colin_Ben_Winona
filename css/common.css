@@ -1,32 +1,20 @@
-/* CSS Code, der für alle Web Pages gleich ist und auf allen Web Pages eingebunden werden muss. */
+/* === Global Resets & Base Styles === */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px 30px;
-  border-bottom: 1px solid #e0e0e0;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-}
-.logo {
-  font-family: "Jost", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 300;
-  font-style: normal;
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; /* Modern, clean font stack */
+  font-family: "Jost", "Helvetica Neue", Helvetica, Arial, sans-serif;
   line-height: 1.6;
   color: #333;
   background-color: #fff;
+  font-weight: 400;
 }
 
 img {
@@ -52,564 +40,831 @@ ul {
 
 .main-content {
   flex-grow: 1;
-  padding: 20px; /* Add some padding around main content */
-  max-width: 1300px; /* Max width for content area */
-  margin: 0 auto; /* Center content */
   width: 100%;
 }
 
-/* === Header === */
+/* === Common Section & Title Styling === */
+.main-content > section {
+  padding: 60px 20px;
+}
+.main-content > section:first-child {
+  padding-top: 0;
+}
+
+.section-title {
+  font-family: "Jost", sans-serif;
+  font-size: 2rem;
+  font-weight: 400;
+  text-align: center;
+  margin-bottom: 40px;
+  color: #1a1a1a;
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+/* === Header Styles === */
 .header {
+  display: flex;
+  justify-content: center;
+  padding: 20px 30px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: #0a0a0a;
+  border-bottom: 1px solid #222222;
+  width: 100%;
+}
+
+.header-content-wrapper {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 30px;
-  border-bottom: 1px solid #e0e0e0;
-  background-color: #fff;
+  width: 100%;
+  max-width: 1300px;
 }
 
-.header a {
-  font-size: 28px;
-  color: #000;
-  letter-spacing: 1px;
+.logo a {
+  font-family: "Jost", sans-serif;
+  font-weight: 600;
+  font-size: 1.8rem;
+  color: #ffffff;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
 }
 
 .main-nav ul {
   display: flex;
-  gap: 25px;
+  align-items: center;
+  gap: 30px;
 }
 
-.main-nav ul li a {
-  text-transform: uppercase;
-  font-weight: 500;
-  font-size: 14px;
-  color: #555;
-  padding-bottom: 5px;
-}
-
-.main-nav ul li a:hover,
-.main-nav ul li a.active {
-  /* Add 'active' class to current page link via JS if needed */
-  color: #000;
-  border-bottom: 2px solid #000;
-}
-
-.header-actions {
+.nav-link-with-icon {
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 8px;
+  font-family: "Jost", sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  color: #e0e0e0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: color 0.3s ease;
 }
 
-.search-bar {
-  padding: 8px 12px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 14px;
-  min-width: 200px;
+.nav-icon-svg {
+  width: 20px;
+  height: 20px;
+  stroke: currentColor;
 }
 
-.header-icon {
-  font-size: 18px; /* Placeholder for icon styling */
-  color: #333;
+.nav-link-with-icon:hover,
+.nav-link-with-icon.active {
+  color: #ffffff;
 }
 
 /* === Buttons === */
 .btn {
   display: inline-block;
-  padding: 10px 25px;
-  border-radius: 4px;
+  padding: 8px 20px;
+  border: 1px solid #1a1a1a;
+  border-radius: 0px;
+  color: #fff;
+  background-color: #333;
+  font-family: "Jost", sans-serif;
+  font-size: 0.9rem;
   font-weight: 500;
   text-align: center;
-  transition: background-color 0.3s ease, color 0.3s ease;
-  cursor: pointer;
-  font-size: 14px;
   text-transform: uppercase;
+  letter-spacing: 0.08em;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+  cursor: pointer;
 }
 
-.btn-primary {
-  background-color: #000;
-  color: #fff;
-  border: 1px solid #000;
-}
-.btn-primary:hover {
-  background-color: #333;
-}
-
-.btn-secondary {
-  /* For the smaller "SHOP NOW" on homepage new collection */
-  background-color: transparent;
-  color: #000;
-  border: 1px solid #000;
-  padding: 8px 20px;
-}
-.btn-secondary:hover {
-  background-color: #000;
-  color: #fff;
-}
-
-.btn-outline {
-  background-color: transparent;
-  color: #333;
-  border: 1px solid #ccc;
-}
-.btn-outline:hover {
-  background-color: #f0f0f0;
-  border-color: #bbb;
-}
-.btn-full-width {
-  width: 100%;
-  margin-bottom: 10px;
+.btn:hover {
+  background-color: #1a1a1a;
+  border-color: #1a1a1a;
 }
 
 /* === Homepage Sections === */
-.hero-section {
-  background-color: #f8f8f8; /* Light grey, adjust to match image or desired color */
-  padding: 60px 30px;
-  text-align: left; /* As per mockup */
-  margin-bottom: 40px; /* Space below hero */
-}
-.hero-content {
-  max-width: 500px; /* Control width of text content */
-}
-.hero-content h1 {
-  font-size: 48px;
-  font-weight: bold;
-  line-height: 1.2;
-  margin-bottom: 15px;
-  color: #000;
-}
-.hero-content p {
-  font-size: 16px;
-  margin-bottom: 25px;
-  color: #555;
-}
-
-.product-showcase-section {
-  margin-bottom: 50px;
-}
-.product-showcase-section h2 {
-  font-size: 28px;
-  font-weight: 500;
-  margin-bottom: 30px;
-  text-align: left; /* Or center if preferred for some sections */
-}
-
-.product-grid {
-  display: grid;
-  gap: 30px;
-}
-.product-grid.two-columns {
-  grid-template-columns: repeat(
-    auto-fit,
-    minmax(300px, 1fr)
-  ); /* Responsive 2 columns */
-}
-.product-grid.three-columns {
-  grid-template-columns: repeat(
-    auto-fit,
-    minmax(250px, 1fr)
-  ); /* Responsive 3 columns */
-}
-
-.product-card {
-  /* For New Collection with more details */
-  background-color: #f9f9f9; /* Light background for card */
-  padding: 20px;
-  text-align: left;
-}
-.product-card .product-image {
-  width: 100%;
-  margin-bottom: 15px;
-  /* Add specific height or aspect-ratio if needed */
-}
-.product-card h3 {
-  font-size: 20px;
-  font-weight: 500;
-  margin-bottom: 8px;
-}
-.new-item-badge {
-  font-size: 10px;
-  background-color: #000;
-  color: #fff;
-  padding: 3px 6px;
-  border-radius: 3px;
-  text-transform: uppercase;
-  margin-left: 5px;
-  vertical-align: middle;
-}
-.product-card .product-description-short {
-  font-size: 14px;
-  color: #666;
-  margin-bottom: 15px;
-  min-height: 40px; /* Ensure some consistent height */
-}
-
-.product-card-simple {
-  /* For Best Seller, Just Seen */
-  text-align: left;
-}
-.product-card-simple .product-image-simple {
-  width: 100%;
-  margin-bottom: 10px;
-  background-color: #f0f0f0; /* Placeholder background */
-  min-height: 200px; /* Placeholder height */
-}
-.product-card-simple h3 {
-  font-size: 16px;
-  font-weight: 500;
-  margin-bottom: 5px;
-}
-.product-card-simple .product-price {
-  font-size: 15px;
-  color: #333;
-  font-weight: bold;
-}
-.text-center {
-  text-align: center;
-}
-.more-button-container {
-  margin-top: 30px;
-}
-
-.category-section h2 {
-  font-size: 28px;
-  font-weight: 500;
-  margin-bottom: 30px;
-  text-align: left;
-}
-.category-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 20px;
-}
-.category-card {
-  background-color: #f0f0f0; /* Light grey background */
-  padding: 40px 20px;
-  text-align: center;
-  font-size: 18px;
-  font-weight: bold;
-  color: #333;
-  border: 1px solid #e0e0e0;
-  transition: background-color 0.3s ease;
-}
-.category-card:hover {
-  background-color: #e5e5e5;
-}
-
-/* === Product Listing Page (Sidebar & Grid) === */
-.page-layout-sidebar {
-  display: grid;
-  grid-template-columns: 280px 1fr; /* Sidebar width and main content */
-  gap: 30px;
-  margin-top: 20px;
-}
-.sidebar-filters .filter-group {
-  margin-bottom: 25px;
-}
-.sidebar-filters .filter-group h3 {
-  font-size: 16px;
-  font-weight: bold;
-  text-transform: uppercase;
-  margin-bottom: 15px;
-  padding-bottom: 5px;
-  border-bottom: 1px solid #eee;
-}
-.sidebar-filters ul li {
-  margin-bottom: 8px;
-}
-.sidebar-filters ul li a {
-  font-size: 14px;
-  color: #444;
-}
-.sidebar-filters ul li a:hover {
-  color: #000;
-  text-decoration: underline;
-}
-.product-listing-container h2 {
-  /* For "TOP", etc. */
-  font-size: 24px;
-  margin-bottom: 20px;
-  text-transform: uppercase;
-}
-
-/* === Product Detail Page === */
-.product-detail-layout {
-  display: grid;
-  grid-template-columns: 1fr 1fr; /* Adjust ratio if needed, e.g., 2fr 1fr */
-  gap: 40px;
-  margin-top: 20px;
-}
-.main-product-image img {
-  width: 100%;
-  border: 1px solid #eee;
-  margin-bottom: 10px;
-}
-.thumbnail-images {
+.hero-startseite {
   display: flex;
-  gap: 10px;
+  /* flex-direction: column; Wird nicht mehr benötigt, da Text absolut positioniert wird */
+  align-items: center;
+  justify-content: center;
+  padding-top: 100px;
+  padding-bottom: 40px;
+  text-align: center;
+  background-color: #f0f0f0;
+  position: relative; /* Erforderlich für die absolute Positionierung des Kindelements .hero-logo-text */
 }
-.thumbnail-images .thumbnail {
-  width: 80px;
-  height: 80px;
-  object-fit: cover;
-  border: 1px solid #ccc;
+
+.hero-logo-text {
+  font-family: "Jost", sans-serif;
+  font-weight: 200;
+  font-size: clamp(3.5rem, 12vw, 7rem);
+  color: #ffffff;
+  /* margin-bottom: 20px; Entfernt, da nicht mehr untereinander gestapelt */
+  line-height: 1;
+  z-index: 1;
+  position: absolute; /* Text aus dem normalen Fluss nehmen und über dem Bild positionieren */
+  top: 50%; /* Vertikal zentrieren */
+  left: 50%; /* Horizontal zentrieren */
+  transform: translate(-50%, -50%); /* Feinjustierung für exakte Zentrierung */
+  width: 100%; /* Stellt sicher, dass der Textblock die volle Breite einnimmt für die Textzentrierung */
+}
+
+.kategorien-section {
+  background-color: #ffffff;
+}
+.kategorien-section .section-title {
+  margin-bottom: 20px; /* Adjust margin for spacing with arrows */
+}
+
+.kategorien-navigation {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1100px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.arrow-nav {
+  background: none;
+  border: 1px solid #d3d3d3;
+  color: #333333;
+  font-size: 1.2rem;
+  padding: 0;
   cursor: pointer;
-  opacity: 0.7;
-}
-.thumbnail-images .thumbnail.active,
-.thumbnail-images .thumbnail:hover {
-  opacity: 1;
-  border-color: #000;
-}
-
-.product-purchase-section h1 {
-  font-size: 28px;
-  font-weight: 500;
-  margin-bottom: 10px;
-}
-.product-price-detail {
-  font-size: 22px;
-  font-weight: bold;
-  color: #000;
-  margin-bottom: 25px;
-}
-.product-option {
-  margin-bottom: 20px;
-}
-.product-option label {
-  display: block;
-  font-size: 14px;
-  font-weight: 500;
-  margin-bottom: 8px;
-}
-.selected-option-value {
-  font-weight: normal;
-  color: #555;
-}
-.size-guide-link {
-  font-size: 12px;
-  text-decoration: underline;
-  color: #555;
-  margin-left: 10px;
-}
-.color-swatches,
-.size-buttons {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-.color-swatch,
-.size-button {
-  min-width: 36px;
+  z-index: 10;
+  border-radius: 50%;
+  width: 36px;
   height: 36px;
-  border: 1px solid #ccc;
-  background-color: #fff;
-  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 13px;
-  padding: 0 5px;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
 }
-.color-swatch.active,
-.size-button.active {
-  border-color: #000;
-  border-width: 2px;
-}
-.size-button.xxl {
-  /* As per mockup, slightly different style */
+.arrow-nav:hover {
   background-color: #f0f0f0;
-  border-color: #e0e0e0;
-}
-.quantity-input {
-  width: 70px;
-  padding: 8px;
-  text-align: center;
-  border: 1px solid #ccc;
-  border-radius: 3px;
+  border-color: #bbbbbb;
 }
 
-.product-info-tabs {
-  margin-top: 40px;
-  border-top: 1px solid #eee;
-}
-.tab {
-  border-bottom: 1px solid #eee;
-}
-.tab-toggle {
-  display: none; /* Hide checkbox */
-}
-.tab-label {
+.kategorien-grid {
   display: flex;
-  justify-content: space-between;
+  gap: 20px;
+  overflow-x: auto;
+  padding: 10px 5px;
+  flex-grow: 1;
+  justify-content: flex-start;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.kategorien-grid::-webkit-scrollbar {
+  display: none;
+}
+
+.kategorie-card {
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  padding: 15px 0;
-  font-size: 16px;
+  text-align: center;
+  min-width: 180px;
+  max-width: 220px;
+  flex-shrink: 0;
+  padding: 0;
+  border: none;
+  transition: opacity 0.3s ease;
+}
+.kategorie-card:hover {
+  opacity: 0.85;
+}
+
+.kategorie-card img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 250 / 350;
+  object-fit: cover;
+  margin-bottom: 10px;
+  background-color: #d3d3d3;
+  border: none;
+}
+
+.kategorie-card span {
+  font-family: "Jost", sans-serif;
   font-weight: 500;
-  cursor: pointer;
+  font-size: 0.9rem;
+  color: #1a1a1a;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
-.tab-label::after {
-  /* Arrow indicator */
-  content: "\\25BC"; /* Down arrow */
-  font-size: 12px;
-  transition: transform 0.3s ease;
+.kategorie-card .coming-soon-text {
+  font-family: "Jost", sans-serif;
+  font-weight: 400;
+  font-size: 0.75rem;
+  color: #6a6a6a;
+  margin-top: 2px;
+  text-transform: lowercase;
 }
-.tab-toggle:checked + .tab-label::after {
-  transform: rotate(180deg); /* Up arrow */
+
+.info-section-homepage {
+  background-color: #f9f9f9;
 }
-.tab-content {
-  max-height: 0;
+
+.info-section-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 30px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.info-block {
+  background-color: #ffffff;
+  padding: 25px;
+  text-align: left;
+  flex-basis: 45%;
+  min-width: 280px;
+  flex-grow: 1;
+  border: 1px solid #e0e0e0;
+}
+
+.info-block h3 {
+  font-family: "Jost", sans-serif;
+  font-size: 1.3rem;
+  font-weight: 500;
+  color: #1a1a1a;
+  margin-bottom: 10px;
+}
+
+.info-block p {
+  color: #6a6a6a;
+  margin-bottom: 20px;
+  font-size: 0.85rem;
+  font-family: "Jost", sans-serif;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+/* === Game Section Styles === */
+.game-section {
+  background-color: #f0f0f0;
+  padding-top: 20px;
+  padding-bottom: 80px;
+  text-align: center;
+}
+.game-title {
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: normal;
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+.game-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+#game {
+  width: 90%;
+  max-width: 600px;
+  height: 300px;
+  margin: auto;
+  border: 2px solid #333;
+  position: relative;
   overflow: hidden;
-  transition: max-height 0.4s ease-out;
-  padding: 0 10px;
+  background-image: url("https://i.postimg.cc/Y02RLjfx/Screenshot-2025-06-03-212508hhhhh.png");
+  background-size: cover;
 }
-.tab-content p {
-  padding: 10px 0 20px;
-  font-size: 14px;
-  color: #444;
+
+.hidden {
+  display: none;
 }
-.tab-toggle:checked ~ .tab-content {
-  max-height: 500px; /* Adjust as needed for content height */
+
+#player {
+  width: 130px;
+  height: 130px;
+  background-image: url("https://i.postimg.cc/Kv6TdRks/Chat-GPT-Image-3-Juni-2025-21-50-14.png");
+  background-size: cover;
+  position: absolute;
+  bottom: 0;
+  left: 50px;
+}
+
+#obstacle {
+  width: 70px;
+  height: 70px;
+  background-size: cover;
+  position: absolute;
+  bottom: 0;
+  left: 600px;
+}
+
+.jump-animation {
+  animation: jump 0.5s;
+}
+
+@keyframes jump {
+  0% {
+    bottom: 0;
+  }
+  50% {
+    bottom: 150px;
+  }
+  100% {
+    bottom: 0;
+  }
+}
+
+.game-score {
+  font-family: "Jost", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: #333;
+}
+
+#reward {
+  position: absolute;
+  top: 50%; /* Centered vertically */
+  left: 50%;
+  transform: translate(-50%, -50%); /* Precise centering */
+  background-color: #fff;
+  padding: 25px;
+  border: 2px solid #333;
+  border-radius: 4px;
+  font-size: 1.1rem;
+  color: #1a1a1a;
+  z-index: 10;
+  font-family: "Jost", sans-serif;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+#reward strong {
+  color: #0075ff; /* Keeping a distinct color for the code */
+  font-weight: 600;
+}
+#reward .btn {
+  margin-top: 15px;
+}
+
+/* === Katalog Page Styles === */
+.katalog-header-section {
+  padding: 60px 20px;
+  background-color: #ffffff;
+  text-align: center;
+}
+.katalog-main-title {
+  font-family: "Jost", sans-serif;
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 300;
+  color: #1a1a1a;
+  margin-bottom: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.produkt-katalog-wrapper {
+  padding: 30px 20px;
+}
+
+.produkt-katalog-grid.four-columns {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.product-item-katalog {
+  background-color: #ffffff;
+  border: none;
+  padding: 0;
+  text-align: left;
+}
+
+.product-item-katalog img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 300 / 400;
+  object-fit: cover;
+  margin-bottom: 10px;
+  background-color: #e9e9e9;
+}
+
+.product-item-katalog h3 {
+  font-family: "Jost", sans-serif;
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: #1a1a1a;
+  margin-bottom: 3px;
+}
+
+.product-item-katalog .product-price {
+  font-family: "Jost", sans-serif;
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: #1a1a1a;
+  margin-bottom: 3px;
+}
+
+.product-item-katalog .coming-soon {
+  font-family: "Jost", sans-serif;
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: #6a6a6a;
+  text-transform: lowercase;
+}
+
+/* === Über Uns Page Styles === */
+.ueber-uns-page-title-section {
+  padding: 60px 20px;
+  background-color: #ffffff;
+  text-align: center;
+}
+.main-title-ueber-uns {
+  font-family: "Jost", sans-serif;
+  font-size: clamp(2.8rem, 7vw, 4.5rem);
+  font-weight: 300;
+  color: #1a1a1a;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.wer-wir-sind-section {
+  background-color: #f9f9f9;
+}
+.wer-wir-sind-content-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 40px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.wer-wir-sind-image {
+  flex: 1 1 400px;
+}
+.wer-wir-sind-image img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  background-color: #e9e9e9;
+}
+.wer-wir-sind-text {
+  flex: 1 1 500px;
+  text-align: left;
+}
+.wer-wir-sind-text h2 {
+  font-family: "Jost", sans-serif;
+  font-size: 1.8rem;
+  font-weight: 500;
+  color: #1a1a1a;
+  margin-bottom: 20px;
+  text-align: left;
+  text-transform: none;
+  letter-spacing: normal;
+}
+.wer-wir-sind-text p {
+  font-family: "Jost", sans-serif;
+  font-size: 0.95rem;
+  color: #333;
+  line-height: 1.7;
+  margin-bottom: 15px;
+}
+
+.team-hinter-midnight-section {
+  background-color: #ffffff;
+}
+.team-hinter-midnight-section .section-title {
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: normal;
+  font-size: 2rem;
+  margin-bottom: 50px;
+}
+.team-grid-ueber-uns {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 40px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.team-member-card {
+  background-color: transparent;
+  padding: 0;
+  text-align: center;
+  border: none;
+  box-shadow: none;
+}
+.team-member-card img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  margin: 0 auto 15px auto;
+  background-color: #e9e9e9;
+}
+.team-member-card h3 {
+  font-family: "Jost", sans-serif;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #1a1a1a;
+  margin-bottom: 5px;
+}
+.team-member-card p {
+  font-size: 0.9rem;
+  color: #6a6a6a;
+  font-family: "Jost", sans-serif;
+  font-weight: 400;
+}
+
+.kontakt-form-section-ueber-uns {
+  background-color: #f0f0f0;
+}
+.kontakt-form-section-ueber-uns .section-title {
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: normal;
+  font-size: 2rem;
+  margin-bottom: 30px;
+}
+
+/* Form Styles (Integrated and adapted for theme) */
+.contact-form-container {
+  width: 100%; /* Allow container to take full width of its parent */
+  margin: 5vh auto;
+  background: #ddd; /* Updated */
+  padding: 2em;
+  border-radius: 10px; /* Added */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05); /* Added */
+  color: #555;
+}
+
+/* .contact-form-container h2 style from your example is page-specific and not added to common.css */
+
+.contact-form-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5em;
+}
+.contact-form-container input[type="text"],
+.contact-form-container input[type="email"],
+.contact-form-container textarea {
+  font-family: "Helvetica Neue", sans-serif; /* Updated */
+  font-size: 1.1em; /* Updated */
+  background: transparent; /* Updated */
+  color: #555; /* Updated */
+  outline: none;
+  resize: none;
+  /* border-radius: 0; Removed as specific border styles are applied below */
+}
+.contact-form-container input[type="text"],
+.contact-form-container input[type="email"] {
+  border: none;
+  border-bottom: 1px solid #777; /* Updated */
+  padding: 1em 0.5em;
+}
+.contact-form-container textarea {
+  height: 150px; /* Updated */
+  border: 1px solid #777; /* Updated */
+  padding: 1em;
+}
+.contact-form-container button[type="submit"] {
+  width: fit-content; /* Updated */
+  /* align-self: flex-start; Removed as width: fit-content handles this */
+  background-color: #000; /* Updated */
+  color: #fff;
+  border: none;
+  padding: 0.75em 2em; /* Updated */
+  font-size: 1em; /* Updated */
+  border-radius: 2px; /* Updated */
+  cursor: pointer;
+  transition: background-color 0.3s;
+  letter-spacing: 1px;
+  font-family: "Helvetica Neue", sans-serif; /* Updated */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Added */
+  /* text-transform: uppercase; Removed */
+}
+.contact-form-container button[type="submit"]:hover {
+  background-color: #333; /* Updated */
+}
+
+.spinner {
+  display: none;
+  border: 8px solid #f3f3f3; /* Changed border width */
+  border-top: 8px solid #000; /* Changed border-top color */
+  border-radius: 50%;
+  width: 60px; /* Updated */
+  height: 60px; /* Updated */
+  animation: spin 1s linear infinite;
+  margin: 20px auto;
+}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Updated error and feedback message styles */
+.contact-form-container .error-message, /* Targeting existing class if used, or use .error */
+.contact-form-container .error {
+  /* Added .error for new convention */
+  margin-top: 1em;
+  color: red;
+  /* font-family and font-size will inherit or can be set if needed */
+}
+
+.contact-form-container .feedback-message, /* Targeting existing class if used, or use .feedback */
+.contact-form-container .feedback {
+  /* Added .feedback for new convention */
+  margin-top: 1em;
+  font-weight: bold;
+  color: green;
+  /* font-family and font-size will inherit or can be set if needed */
+}
+
+/* Invalid field styles */
+.contact-form-container input.invalid {
+  color: red; /* Added text color for invalid input */
+  border-bottom-color: red !important;
+}
+.contact-form-container textarea.invalid {
+  color: red; /* Added text color for invalid textarea */
+  border: 2px solid red !important; /* Updated border for textarea */
+}
+.contact-form-container input.invalid::placeholder,
+.contact-form-container textarea.invalid::placeholder {
+  color: red;
 }
 
 /* === Footer === */
 .footer {
-  background-color: #000;
-  color: #fff;
-  padding: 40px 30px 20px;
-  margin-top: 40px; /* Ensure space above footer if content is short */
+  background-color: #000000;
+  color: #a0a0a0;
+  padding: 50px 30px 30px;
+  font-family: "Jost", sans-serif;
 }
-
-.footer-main {
+.footer-content-wrapper {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 30px;
-  margin-bottom: 30px;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 20px;
+  max-width: 1300px;
+  margin: 0 auto 30px auto;
   padding-bottom: 30px;
-  border-bottom: 1px solid #444;
+  border-bottom: 1px solid #222222;
+  align-items: start;
 }
-
-.footer-column h3 {
-  font-size: 16px;
+.footer-column h4 {
+  font-family: "Jost", sans-serif;
+  font-size: 0.9rem;
   font-weight: 500;
-  text-transform: uppercase;
+  color: #ffffff;
   margin-bottom: 15px;
-  color: #f0f0f0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
-
 .footer-column ul li {
   margin-bottom: 8px;
 }
-
-.footer-column ul li a {
-  font-size: 14px;
-  color: #ccc;
+.footer-column ul li a,
+.footer-column .footer-achtung-text {
+  font-size: 0.85rem;
+  font-weight: 300;
+  color: #a0a0a0;
+  line-height: 1.5;
 }
-
 .footer-column ul li a:hover {
-  color: #fff;
-  text-decoration: underline;
+  color: #ffffff;
 }
-
-.social-icons {
-  display: flex;
-  gap: 15px;
+.footer-logo-column {
+  /* Alignment handled by grid */
 }
-.social-icons a {
-  color: #ccc;
-  font-size: 18px; /* Placeholder if using text, adjust for actual icons */
+.footer-logo-link {
+  font-family: "Jost", sans-serif;
+  font-weight: 200;
+  font-size: 1.8rem;
+  color: #ffffff;
+  letter-spacing: 0.05em;
+  display: block;
+  text-transform: uppercase;
 }
-.social-icons a:hover {
-  color: #fff;
-}
-
 .footer-bottom {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 13px;
-  color: #aaa;
+  font-size: 0.8rem;
+  color: #777777;
   padding-top: 20px;
+  max-width: 1300px;
+  margin: 0 auto;
+  flex-wrap: wrap;
 }
-
-.footer-legal-nav ul {
-  display: flex;
-  gap: 15px;
-}
-.footer-legal-nav ul li a:hover {
-  color: #fff;
+.footer-bottom p {
+  color: #777777;
+  margin-bottom: 5px;
+  font-weight: 300;
 }
 
 /* === Responsive Adjustments === */
 @media (max-width: 992px) {
-  .product-grid.two-columns,
-  .product-grid.three-columns,
-  .category-grid {
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  .wer-wir-sind-content-wrapper {
+    flex-direction: column;
+    text-align: center;
   }
-  .page-layout-sidebar {
-    grid-template-columns: 220px 1fr; /* Smaller sidebar */
+  .wer-wir-sind-image {
+    order: -1;
+    margin-bottom: 30px;
   }
-  .product-detail-layout {
-    grid-template-columns: 1fr; /* Stack on smaller screens */
-  }
-  .hero-content h1 {
-    font-size: 36px;
+  .wer-wir-sind-text,
+  .wer-wir-sind-text h2 {
+    text-align: center;
   }
 }
 
 @media (max-width: 768px) {
-  .header {
+  .header-content-wrapper,
+  .footer-bottom {
     flex-direction: column;
     gap: 15px;
-    padding: 15px;
+  }
+  .logo,
+  .footer-logo-column,
+  .footer-logo-link {
+    margin-right: 0;
+    text-align: center;
+  }
+  .main-nav {
+    width: 100%;
   }
   .main-nav ul {
     justify-content: center;
     flex-wrap: wrap;
+    gap: 20px;
   }
-  .search-bar {
-    width: 100%;
+  .hero-logo-text {
+    font-size: clamp(2.5rem, 8vw, 4rem);
   }
-  .page-layout-sidebar {
-    grid-template-columns: 1fr; /* Stack sidebar and content */
+  .info-block {
+    flex-basis: 100%;
+    max-width: 100%;
   }
-  .sidebar-filters {
-    margin-bottom: 30px;
-  }
-  .footer-main {
+  .produkt-katalog-grid.four-columns,
+  .team-grid-ueber-uns {
     grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   }
-  .footer-bottom {
-    flex-direction: column;
-    gap: 10px;
+  .footer-content-wrapper {
+    grid-template-columns: 1fr;
     text-align: center;
   }
-  .hero-content h1 {
-    font-size: 30px;
+  .footer-column ul {
+    padding-left: 0;
   }
-  .hero-content p {
-    font-size: 15px;
+  .footer-logo-column {
+    margin-top: 20px;
   }
-  .product-showcase-section h2,
-  .category-section h2 {
-    font-size: 24px;
+  .footer-logo-link {
+    display: inline-block;
   }
+  /* .game-container #game width: 100%; was here, but #game already has max-width: 600px and width: 90% */
 }
 
 @media (max-width: 480px) {
-  .main-content {
-    padding: 15px;
+  .main-content > section {
+    padding: 30px 15px;
   }
-  .product-grid,
-  .category-grid {
-    grid-template-columns: 1fr; /* Single column on very small screens */
+  .section-title,
+  .katalog-main-title,
+  .main-title-ueber-uns {
+    font-size: 1.8rem;
   }
-  .hero-content h1 {
-    font-size: 26px;
+  .kategorie-card {
+    min-width: 160px;
+    max-width: 180px;
+  }
+  .produkt-katalog-grid.four-columns {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+  .team-grid-ueber-uns {
+    grid-template-columns: 1fr;
   }
   .btn {
-    padding: 8px 18px;
-    font-size: 13px;
+    padding: 10px 22px;
   }
+  .hero-logo-text {
+    font-size: clamp(2rem, 7vw, 3rem);
+  }
+}
+
+.contact-form-container .error-text {
+  display: block;
+  color: red;
+  font-size: 0.8rem;
+  margin-top: -10px; /* Etwas anpassen für dein Layout */
+  margin-bottom: 10px;
+  text-align: left;
 }
