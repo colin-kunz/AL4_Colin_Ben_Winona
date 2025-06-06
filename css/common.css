@@ -737,7 +737,7 @@ ul {
 .socialmedia-column {
   display: flex;
   align-items: center;
-  gap: 10;
+  gap: 10px;
 }
 
 .footer-logo-link {
