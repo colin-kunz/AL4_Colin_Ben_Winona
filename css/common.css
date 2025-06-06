@@ -191,8 +191,8 @@ ul {
 
 .arrow-nav {
   background: none;
-  border: none;
-  color: none;
+  border: none; /* Behält die vorherige Änderung bei, falls gewünscht */
+  color: #333; /* Stellt sicher, dass currentColor für SVGs funktioniert */
   padding: 0;
   cursor: pointer;
   z-index: 10;
@@ -201,6 +201,13 @@ ul {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.arrow-nav svg {
+  /* Stile für die SVGs in den Pfeil-Buttons */
+  width: 24px;
+  height: 24px;
+  stroke-width: 1.5; /* Konsistent mit SVG-Attribut */
 }
 
 .kategorien-grid {

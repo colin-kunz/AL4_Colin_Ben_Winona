@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (kategorienGrid && prevArrow && nextArrow) {
     // Calculate scroll amount based on the first card's width + gap
     const firstCard = kategorienGrid.querySelector(".kategorie-card");
-    const scrollAmount = firstCard ? firstCard.offsetWidth + 20 : 270; // 20 is the gap
+    const scrollAmount = firstCard ? firstCard.offsetWidth + 20 : 270;
 
     prevArrow.addEventListener("click", () => {
       kategorienGrid.scrollBy({ left: -scrollAmount, behavior: "smooth" });
@@ -75,16 +75,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function checkCollision() {
       // Simplified collision check based on original logic
-      // This needs to be robust. The original getBoundingClientRect is more reliable.
-      // For now, using the provided simplified logic.
-      const playerRect = player.getBoundingClientRect();
-      const obstacleRect = obstacle.getBoundingClientRect();
-      return !(
-        playerRect.right < obstacleRect.left ||
-        playerRect.left > obstacleRect.right ||
-        playerRect.bottom < obstacleRect.top ||
-        playerRect.top > obstacleRect.bottom
-      );
+      const playerTop = parseInt(getComputedStyle(player).bottom);
+      return obstacleX < 100 && obstacleX > 50 && playerTop < 80;
     }
 
     function generateCode() {
@@ -99,7 +91,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function updateGame() {
-      if (!obstacle || !player) {
+      if (!obstacle) {
         // Stop if elements are missing
         cancelAnimationFrame(animationFrame);
         return;
@@ -114,17 +106,12 @@ document.addEventListener("DOMContentLoaded", () => {
         if (scoreDisplay) scoreDisplay.innerText = "Punkte: " + score;
       }
 
-      // Use effective width, defaulting to 70 if offsetWidth is not yet available or 0
-      const effectiveObstacleWidth =
-        obstacle && obstacle.offsetWidth > 0 ? obstacle.offsetWidth : 70;
-      if (obstacleX < -effectiveObstacleWidth) {
-        // Check against obstacle width
+      if (obstacleX < -50) {
         if (!hit) {
           score++;
           if (scoreDisplay) scoreDisplay.innerText = "Punkte: " + score;
 
-          if (score >= 20 && !rewardShown) {
-            // Changed to >= 20 for robustness
+          if (score === 20 && !rewardShown) {
             if (codeEl) codeEl.textContent = generateCode();
             if (reward) reward.classList.remove("hidden");
             cancelAnimationFrame(animationFrame);
@@ -142,12 +129,13 @@ document.addEventListener("DOMContentLoaded", () => {
     function startGame() {
       score = 0;
       speed = 5;
+      obstacleX = 600;
       hit = false;
       rewardShown = false;
       if (scoreDisplay) scoreDisplay.innerText = "Punkte: " + score;
       if (reward) reward.classList.add("hidden");
 
-      resetObstacle(); // Resets obstacleX too
+      resetObstacle();
 
       if (animationFrame) {
         cancelAnimationFrame(animationFrame);
@@ -166,7 +154,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (restartBtn) {
       restartBtn.addEventListener("click", () => {
-        startGame(); // This will re-initialize and start the game loop
+        startGame();
       });
     }
   }

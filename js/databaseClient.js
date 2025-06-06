@@ -7,8 +7,8 @@ Lesen Sie alle Kommentare.
 */
 
 // Ändern Sie die folgenden beiden Werte, um ihre Datenbank zu verbinden.
-const GROUP_NAME = "teacher";
-const PASSWORD = "vf9bm0k4uoji7o4b";
+const GROUP_NAME = "al4";
+const PASSWORD = "gfvw4zju7yq7m861";
 
 const SERVER_URL = "https://ict-290.herokuapp.com/sql";
 const databaseClient = {
